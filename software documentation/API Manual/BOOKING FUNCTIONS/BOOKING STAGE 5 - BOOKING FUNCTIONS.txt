@@ -1,0 +1,280 @@
+Eden Master ver 1.0b - BOOKING FUNCTIONS
+----------------------------------------
+The manager/sales can preform the following functions when it comes to 
+bookings
+
+1. View a booking
+2. Get all booking lists : all, cancelled, review, expired, near expiry, by company
+3. Get all bookings by field : manager_id, sales_id, kiosk_id, location_id, zone_id, customer_id, application_id, booking_id, rate_id
+4. Cancel booking
+5. Email booking
+
+
+
+1. VIEW A BOOKING
+=================
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/viewbooking
+
+1. Returns all information about a particular booking
+
+JSON format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+  	    "booking_ref": "BK/6534016/SHA"
+  
+}
+
+JSON response sample:
+
+
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Booking reference : BK/6534016/SHA successfully obtained"
+    },
+    "success": true,
+    "data": {
+        "customerID": 23,
+        "emailIDCus": "shazee.shah@gmail.com",
+        "firstName": "Shazee",
+        "lastName": "Shah",
+        "address": "55 The Parade, High Street",
+        "emirate": "UAE",
+        "poBox": "test4",
+        "mobileNumber": "342-583-283-999",
+        "officeNumber": "87867687",
+        "tradeLicence": 1,
+        "tradeName": "Silver Marriott",
+        "booking": {
+            "quoteRef": "QUO/2393216/SHA",
+            "customer_ID": 23,
+            "kiosk_ID": 205,
+            "lease_duration_days": 36,
+            "start_date": "10/09/2019",
+            "end_date": "15/10/2019",
+            "lease_total": 4255.2,
+            "rate": 118.2,
+            "booking_id": 9,
+            "booking_ref": "BK/6534016/SHA",
+            "application": {
+                "applicationID": 57,
+                "quoteID": 123,
+                "managerID": 2,
+                "salesID": 1,
+                "comments": "[ Shazee Shah | 16/07/2019 01:25 ] : please could you review this application\n[ Sheeraz Sabir | 16/07/2019 01:26 ] : additional comments\n[ Sheeraz Sabir | 16/07/2019 03:38 ] : even more comments !\n ",
+                "dateOfApplication": "2019-07-14",
+                "isApproved": 1,
+                "reviewFlag": 1,
+                "security_deposit": "http://jouple.net/eden-master/quote_scans/quo_2393216_sha/deposit_scan_quo_2393216_sha.pdf"
+            },
+            "booking_date": "15/07/2019",
+            "application_date": "14/07/2019",
+            "is_cancelled": 0,
+            "is_expired": 0,
+            "is_expiry_due": 0,
+            "review_flag": 0,
+            "expiry_due_period_day": 30
+        },
+        "kiosk_info": {
+            "kioskID": 205,
+            "gridLocationRow": 8,
+            "gridLocationColumn": 1,
+            "kioskNumber": 36,
+            "zoneID": 47,
+            "availability_code": 2,
+            "location_name": "GATWICK AIRPORT",
+            "location_area": "TERMINAL 3",
+            "zone": {
+                "zoneID": 47,
+                "zoneNumber": 1,
+                "zoneName": "Rimmel Zone",
+                "locationID": 14
+            },
+            "daily_rate": 118.2,
+            "lease_total": 4255.2,
+            "lease_duration": 36
+        },
+        "companyList": [
+            {
+                "companyID": 23,
+                "customerID": 23,
+                "companyName": "test 2"
+            },
+            {
+                "companyID": 50,
+                "customerID": 23,
+                "companyName": "Coca Cola"
+            }
+        ],
+        "productList": [
+            [],
+            []
+        ],
+        "productPhotoLists": []
+    }
+}
+
+2. GET LIST OF BOOKINGS
+=======================
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/getbookings
+
+1. get a list of applications under manager of staff_email_id:
+
+JSON format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+            "bookingViewMode": "*"  
+}
+
+"bookingViewMode" : "*"      <------ all bookings
+"bookingiewMode" : "cancelled"  <-------- all cancelled bookings
+"bookingViewMode" : "review" < -------- all bookings marked for review
+"bookingViewMode" : "expired" < ---------- all expired bookings
+"bookingViewMode" : "expiry_due" < ----------- all bookings which are due to expire in 30 days
+"bookingViewMode" : "company" <------------ all bookings listed against a company
+
+3. GET LIST OF BOOKINGS BY FIELD
+=================================
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/getbookingsbyfield
+
+1. get a list of applications under manager of staff_email_id:
+
+JSON format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+            "bookingViewMode": "kiosk",
+	    "field_id" : 23  
+}
+
+"bookingViewMode" : "manager"      <------ all bookings approved by manager (field_id = manager_id)
+"bookingiewMode" : "sales"  <-------- all bookings transacted by sales employee (field_id = sales_id)
+"bookingViewMode" : "customer"      <------ all bookings by customer (field_id = customer_id)
+"bookingiewMode" : "kiosk"  <-------- all bookings under particular kiosk (field_id = kiosk_id)
+"bookingViewMode" : "location"      <------ all bookings under location (field_id = location_id)
+"bookingiewMode" : "zone"  <-------- all bookings under zone (field_id = zone_id)
+"bookingViewMode" : "application"      <------ booking summary under application_id
+"bookingiewMode" : "booking"  <-------- booking summary under booking_id
+"bookingViewMode" : "rate"      <------ all bookings made under a zone rate (field_id = rate_id)
+
+JSON Response sample:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "2 bookings successfully retrieved"
+    },
+    "success": true,
+    "data": [
+        {
+            "booking_id": 8,
+            "customer_id": 23,
+            "booking_ref": "BK/2979200/SHA",
+            "is_cancelled": 0,
+            "is_expired": 0,
+            "is_expiry_due": 0,
+            "review_flag": 0,
+            "date_of_booking": "15/07/2019",
+            "first_name": "Shazee",
+            "last_name": "Shah",
+            "lease_start_date": "10/09/2019",
+            "lease_end_date": "15/10/2019",
+            "lease_total": 4255.2,
+            "location_name": "GATWICK AIRPORT",
+            "location_area": "Terminal 3",
+            "zone_number": 1,
+            "zone_name": "Rimmel Zone",
+            "kiosk_number": 35
+        },
+        {
+            "booking_id": 9,
+            "customer_id": 23,
+            "booking_ref": "BK/6534016/SHA",
+            "is_cancelled": 0,
+            "is_expired": 0,
+            "is_expiry_due": 0,
+            "review_flag": 0,
+            "date_of_booking": "15/07/2019",
+            "first_name": "Shazee",
+            "last_name": "Shah",
+            "lease_start_date": "10/09/2019",
+            "lease_end_date": "15/10/2019",
+            "lease_total": 4255.2,
+            "location_name": "GATWICK AIRPORT",
+            "location_area": "Terminal 3",
+            "zone_number": 1,
+            "zone_name": "Rimmel Zone",
+            "kiosk_number": 36
+        }
+    ]
+}
+
+4. CANCEL A BOOKING
+===================
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/cancelbooking
+
+1. Cancels a particular booking
+
+JSON format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+  	    "booking_ref": "BK/6534016/SHA"
+  
+}
+
+JSON Response:
+
+{
+    "response": {
+        "status": "SUCCESS",
+        "message": "Booking BK/9631360/SHA was successfully cancelled - cancellation email sent to the customer"
+    },
+    "success": true
+}
+
+
+1. EMAIL A BOOKING
+==================
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/emailbooking
+
+1. email a booking to the customer
+
+JSON format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+  	    "booking_ref": "BK/6534016/SHA"
+  
+}
+
+2. email booking to another email address
+
+{
+        "staff_email_id": "avaesshah@gmail.com",
+  	"booking_ref" : "BK/9631360/SHA",
+  	"email_booking_to" : "someone@icloud.com"
+}
+
+
+JSON Response
+
+{
+    "response": {
+        "status": "SUCCESS",
+        "message": "Booking BK/9631360/SHA was successfully emailed"
+    },
+    "success": true
+}
+
+
+
+

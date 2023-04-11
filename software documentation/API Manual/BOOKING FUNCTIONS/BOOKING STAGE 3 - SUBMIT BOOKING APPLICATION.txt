@@ -1,0 +1,362 @@
+Eden Master ver 1.0b - SUBMIT BOOKING APPLICATION FUNCTION
+----------------------------------------------------------
+
+When a sales person submits an application to the manager he/she would need to do 
+the following steps:
+ 
+Step 1. enter the quote number and obtain the customer information
+Step 2. Update customer information
+Step 3. Add product 
+Step 4. Upload product photos (if any)
+Step 5. Select a manager from the list
+Step 6. Submit the quote for booking application
+Step 7. Upload security deposit scan (any format)
+
+The urls for this sequence are as follows:
+
+OBTAIN CUSTOMER INFORMATION (STEP 1)
+====================================
+hit JSON POST request to ----> http://jouple.net:8090/edenapi/booking/getcustomer
+
+JSON request format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+            "quoteRef": "496896/KHA"
+}
+
+RESPONSE SAMPLE:
+
+{
+    "response": {
+        "status": "SUCCESS",
+        "message": "Customer details for 4456448/KHA obtained successfully "
+    },
+    "success": true,
+    "data": {
+        "customerID": 48,
+        "emailIDCus": "avaesshah@gmail.com",
+        "firstName": "Amir",
+        "lastName": "Khan",
+        "address": "QUOTE ONLY - customer information pending booking",
+        "emirate": "QUOTE ONLY - customer information pending booking",
+        "poBox": "QUOTE ONLY - customer information pending booking",
+        "mobileNumber": "QUOTE ONLY - customer information pending booking",
+        "officeNumber": "QUOTE ONLY - customer information pending booking",
+        "tradeName": "QUOTE ONLY - customer information pending booking",
+        "companyList": [
+            {
+                "companyID": 42,
+                "customerID": 48,
+                "companyName": "Mountain Ridge Limited"
+            },
+            {
+                "companyID": 44,
+                "customerID": 48,
+                "companyName": "Ridgeback Limited"
+            },
+            {
+                "companyID": 45,
+                "customerID": 48,
+                "companyName": "Rayleigh Limited"
+            }
+        ]
+    }
+}
+
+UPDATE CUSTOMER INFORMATION (STEP 2)
+====================================
+hit JSON POST request to ----> http://jouple.net:8090/edenapi/dash/updatecustomer
+
+JSON request format :
+
+{
+
+            "staff_email": "avaesshah@gmail.com",
+            "emailIDCus": "test@test.com",
+            "firstName": "Arnold",
+            "lastName": "Schwarzenegger",
+            "address": "HQ - Black OPs",
+            "emirate": "USA",
+            "poBox": "W3",
+            "mobileNumber": "123 123 5646",
+            "officeNumber": "873 873 2342",
+            "tradeLicence": 1
+}
+
+RESPONSE SAMPLE:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "customer details successfully updated to the database"
+    },
+    "success": true,
+    "data": {
+        "customerID": 1,
+        "emailIDCus": "test@test.com",
+        "firstName": "Arnold",
+        "lastName": "Schwarzenegger",
+        "address": "HQ - Black OPs",
+        "emirate": "USA",
+        "poBox": "W3",
+        "mobileNumber": "123 123 5646",
+        "officeNumber": "873 873 2342",
+        "tradeLicence": 1,
+        "staff_email": "avaesshah@gmail.com",
+        "staff_employee_id": 0,
+        "company": {
+            "companyID": 0,
+            "customerID": 0,
+            "companyName": "test@test.com",
+            "companyLogo": null
+        }
+    }
+}
+
+
+ADD PRODUCT (STEP 3)
+====================
+hit JSON POST request to ----> http://jouple.net:8090/edenapi/dash/addproduct
+
+JSON request format :
+
+{
+
+        "staff_email": "avaesshah@gmail.com",
+        "companyID": 16,
+        "description": "Pespi Cola",
+        "origin": "UK",
+        "priceRange": "1.20 - 1.60"
+
+}
+
+successful JSON response format :
+{
+    "response": {
+        "status": "Success",
+        "message": "Product successfully added to the database"
+    },
+    "success": true,
+    "data": {
+        "productID": 11,
+        "companyID": 16,
+        "description": "Pespi Cola",
+        "origin": "UK",
+        "priceRange": "1.20 - 1.60",
+        "staff_email": "avaesshah@gmail.com"
+    }
+}
+
+you can add as many as the customer desires
+
+ADD PRODUCT AND PRODUCT PHOTOS (STEP 4)
+=======================================
+hit JSON POST request to ----> http://jouple.net:8090/edenapi/dash/addproductphotos
+
+JSON request format :
+{
+        "companyID": 42,
+        "description": "something",
+        "origin": "something",
+        "priceRange": " 1.0 - 2.0",
+        "staff_email_id": "avaesshah@gmail.com",
+        "productPhotoList": [
+            {
+                "productPhoto": "base 64 image here"
+            },
+            {
+
+                "productPhoto": "base 64 image here"
+            }
+        ]
+    }
+}
+
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Product photo successfully added to the database"
+    },
+    "success": true,
+    "data": {
+        "productID": 29,
+        "companyID": 42,
+        "description": "something",
+        "origin": "something",
+        "priceRange": " 1.0 - 2.0",
+        "staff_email_id": "avaesshah@gmail.com",
+        "productPhotoList": [
+            {
+                "productPhotoId": 66,
+                "productID": 29,
+                "description": "something",
+                "photoPhotoURL": "http://jouple.net/eden-master/product_photos/mountain_ridge_limited/29/product_photo_somet_98417920_mountain_ridge_limited.jpg"
+            },
+            {
+                "productPhotoId": 67,
+                "productID": 29,
+                "description": "something",
+                "photoPhotoURL": "http://jouple.net/eden-master/product_photos/mountain_ridge_limited/29/product_photo_somet_99204352_mountain_ridge_limited.jpg"
+            }
+        ]
+    }
+}
+
+// you can add as many photos as the customer desires
+
+
+SELECT MANAGER FROM LIST (STEP 5)
+=================================
+hit JSON GET request to ----> http://jouple.net:8090/edenapi/booking/getmanagers
+
+JSON response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Manager list successfully retrieved"
+    },
+    "success": true,
+    "data": [
+        {
+            "employeeID": 5,
+            "emailID": "edenstaradmin@icloud.com",
+            "firstName": "Sylvester",
+            "lastName": "Stallone",
+            "phoneNumber": "classified",
+            "profileUrl": "test",
+            "userLevel": "manager"
+        },
+        {
+            "employeeID": 1,
+            "emailID": "avaesshah@gmail.com",
+            "firstName": "Shazee",
+            "lastName": "Shah",
+            "phoneNumber": "213213 1231",
+            "profileUrl": "test",
+            "userLevel": "manager_admin"
+        },
+        {
+            "employeeID": 11,
+            "emailID": "umairanwar2727@gmail.com",
+            "firstName": "Umair",
+            "lastName": "Anwar",
+            "phoneNumber": "123 43453 435",
+            "profileUrl": "test",
+            "userLevel": "manager_admin"
+        }
+    ]
+}
+
+SUBMIT QUOTE FOR APPLICATION (STEP 6)
+====================================
+hit JSON POST request to ----> http://jouple.net:8090/edenapi/booking/submitquote
+
+JSON request format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+            "quoteRef": "496896/KHA",
+            "employee_id" : 1
+}
+
+
+JSON Response Sample:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Quotation successfully generated and emailed to the manager"
+    },
+    "success": true,
+    "data": {
+        "quote_ID": 98,
+        "quoteRef": "496896/KHA",
+        "customer_ID": 48,
+        "kiosk_ID": 137,
+        "lease_duration_days": 4,
+        "expiry_duration_days": 30,
+        "quote_date": "04/07/2019",
+        "start_date": "01/08/2019",
+        "end_date": "04/08/2019",
+        "lease_total": 397.82,
+        "rate": 99.456,
+        "availability_status": "*** AVAILABLE ***",
+        "application_id": 45,
+        "customer": {
+            "customerID": 48,
+            "emailIDCus": "avaesshah@gmail.com",
+            "firstName": "Amir",
+            "lastName": "Khan",
+            "address": "QUOTE ONLY - customer information pending booking",
+            "emirate": "QUOTE ONLY - customer information pending booking",
+            "poBox": "QUOTE ONLY - customer information pending booking",
+            "mobileNumber": "QUOTE ONLY - customer information pending booking",
+            "officeNumber": "QUOTE ONLY - customer information pending booking",
+            "tradeLicence": 0,
+            "tradeName": "QUOTE ONLY - customer information pending booking"
+        },
+        "companyList": [
+            {
+                "companyID": 42,
+                "customerID": 48,
+                "companyName": "Mountain Ridge Limited"
+            },
+            {
+                "companyID": 44,
+                "customerID": 48,
+                "companyName": "Ridgeback Limited"
+            },
+            {
+                "companyID": 45,
+                "customerID": 48,
+                "companyName": "Rayleigh Limited"
+            }
+        ],
+        "kioskQuery": {
+            "kioskNumber": 2,
+            "availability_code": 4,
+            "location_name": "HEATHROW AIRPORT",
+            "location_area": "TERMINAL 4",
+            "zone": {
+                "zoneNumber": 8,
+                "zoneName": "Orange Zone"
+            }
+        },
+        "manager_id": 1
+    }
+}
+
+
+The selected manager then receives an email with the application summary
+
+
+UPLOAD SECURITY DEPOSIT (STEP 7)
+=================================
+
+hit JSON POST request to ----> http://jouple.net:8090/edenapi/booking/uploaddeposit
+
+JSON request format :
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+            "application_id" : 37
+  	    "deposit_scan" : "< deposit in Base 64 goes here>"
+
+}
+
+RESPONSE :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Deposit URL was successfully added to the database"
+    },
+    "success": true
+}
+
+

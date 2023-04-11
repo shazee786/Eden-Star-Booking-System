@@ -1,0 +1,115 @@
+KIOSK **** (one) ---------------------- (one) [RATE]
+----------
+kiosk_id (PK) - String
+location_id - String 
+kiosk_number - int
+zone - int
+grid_location_row - int 
+grid_location_column - int 
+is_void - boolean - default 0
+is_locked - boolean - 0
+
+
+RATE **** (one) -------------------------(one)[KIOSK]
+----------
+location_id (PK) - string 
+zone_1_rate - double
+zone_2_rate - double
+zone_3_rate - double
+zone_4_rate - double
+zone_5_rate - double
+is_peakrate - boolean
+
+
+QUOTE **** (many) --------------------(one) [KIOSK*]
+----------
+quote_id - int (PK)
+kiosk_id - String
+start_date - Date
+end_date - Date
+rate - double
+lease_length - int
+total_lease - double
+email_id_cus - String
+email_id_sales - String
+email_id_manager - String
+is_approved - boolean - 0
+quote_date - Date
+valid_for - int - 30 
+expired - boolean - 0
+quotation_pdf - blob
+
+
+CONTRACT **** (one) ------------------------ (one) [QUOTE*]
+------------
+contract_id - int (PK)
+quote_id - int
+is_approved - boolean - 0
+approval_date - Date
+comments - String
+flag_for_manager - boolean - 0
+retain_deposit - boolean - 0
+contract_pdf - blob
+thank_you_letter_pdf - blob
+
+
+FINANCE **** (one) ----------------------- (one) [CONTRACT*]
+------------
+finance_id - int (PK)
+contract_id - int
+deposit_amount - double
+payment_method - String
+security_deposit_scan_pdf - blob
+deposit_received - boolean - 0
+deposit_cleared_date - Date
+deposit_receipt_scan - blob
+net_lease - double
+total_payments_received - double
+payments_remaining - double
+
+
+PAYMENT **** (many) ----------------------(one) [FINANCE*]
+------------
+payment_id - int (PK)
+finance_id - int
+amount_due - double
+date_due - Date
+received_date - Date
+overdue - boolean - 0
+
+
+CUSTOMER **** (one) -----------------------(many) [QUOTE*]
+-------------
+email_id_cus - string (PK)
+company_id - int
+first_name - String
+last_name - String
+address - String
+po_box - String
+emirate - String
+mobile_number - String
+office_number - String
+trade_licence - boolean = false;
+
+
+COMPANY **** (one) ----------------------(one) [CUSTOMER*]
+------------
+company_id - int (PK)
+product_id - int
+email_id_cus - string
+company_logo - blob
+
+
+PRODUCT **** (many) -----------------------(one)[COMPANY*]
+------------
+product_id - int (PK)
+company_id - int
+description - String
+origin - Stringttt
+price_range - String
+photo_1 - blob
+photo_2 - blob
+photo_3 - blob
+photo_4 - blob
+
+

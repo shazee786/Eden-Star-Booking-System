@@ -1,0 +1,194 @@
+Eden Master ver 1.0b
+--------------------
+
+ZONE ADMIN FUNCTIONS
+========================
+
+add a ZONE
+==========
+This function adds a zone to a location. When you add a zone, you have to specify a rate as shown
+below. The Max and Min value and discount duration allows the api to calculate the sliding scale
+for discount.
+
+
+POST ---- > jouple.net:8090/edenapi/dash/addzone
+
+JSON format example:
+
+{
+       "zoneName": null,   < -------- the zone name is optional
+        "locationID": 12,
+        "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "discountDurationDays": 365,
+            "rateMax": 1200,
+            "rateMin": 900
+        }
+
+}
+
+
+JSON Response example :
+
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Zone and Rate were successfully generated on database"
+    },
+    "success": true,
+    "data": {
+        "zoneID": 59,
+        "zoneNumber": 5,
+        "zoneName": null,
+        "locationID": 12,
+        "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "rateID": 65,
+            "discountDurationDays": 365,
+            "rateCoeff": -0.82,
+            "rateMax": 1200,
+            "rateMin": 900,
+            "zoneID": 59
+        }
+    }
+}
+
+**************************************************************
+get kiosks by zoneID
+===================
+
+POST JSON ----------------> jouple.net:8090/edenapi/dash/getkioskbyzone
+
+{
+        "staff_email_id": "avaesshah@gmail.com",
+        "zoneID" : 41
+}
+
+this will return a list of kioks registered under that particular zone
+
+
+
+***************************************************************
+get all ZONE information
+========================
+This will return the rate and kiosks registered under a zone by zoneID
+
+
+POST -------> jouple.net:8090/edenapi/dash/getzone
+
+JSON format example :
+
+
+{
+
+  "staff_email_id": "avaesshah@gmail.com",
+  "zoneID" :54
+
+}
+
+
+Response :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": {
+        "zoneID": 54,
+        "zoneNumber": 1,
+        "zoneName": null,
+        "locationID": 16,
+        "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "rateID": 60,
+            "discountDurationDays": 365,
+            "rateCoeff": -0.41,
+            "rateMax": 500,
+            "rateMin": 350,
+            "zoneID": 54
+        },
+        "kioskList": [
+            {
+                "kioskID": 224,
+                "gridLocationRow": 1,
+                "gridLocationColumn": 1,
+                "isLocked": 0,
+                "isVoid": 0,
+                "kioskNumber": 1,
+                "zoneID": 54
+            },
+   
+( ... list of kiosks under zone ....)
+            {
+                "kioskID": 238,
+                "gridLocationRow": 3,
+                "gridLocationColumn": 5,
+                "isLocked": 0,
+                "isVoid": 0,
+                "kioskNumber": 15,
+                "zoneID": 54
+            }
+        ]
+    }
+}
+
+****************************************************************
+update ZONE details
+===================
+The name and number of a zone can be changed by this function
+
+POST ------- > jouple.net:8090/edenapi/dash/updatezone
+
+JSON format example :
+
+{
+
+        "zoneID": 46,
+        "zoneNumber": 3,< ---------- this can be changed
+        "zoneName": "Purple Zone", <----------------- the zone name can be set
+        "staff_email_id": "avaesshah@gmail.com"
+}
+
+note: zoneID, location_id and staff_email_id cannot be changed
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Zone details successfully updated to the database"
+    },
+    "success": true
+}
+
+===============================================================
+delete ZONE from database
+=========================
+This deletes the zone and all registered associates, i.e. kiosks and rate.
+
+
+POST ----------------------> jouple.net:8090/edenapi/dash/deletezone
+
+JSON format example :
+
+{
+
+        "zoneID": 54,
+        "staff_email_id": "avaesshah@gmail.com"
+}
+
+successful return response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "zone and associated kiosks and rate successfully deleted from the database"
+    },
+    "success": true
+}
+
+

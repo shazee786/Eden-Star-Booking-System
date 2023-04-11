@@ -1,0 +1,283 @@
+Eden Master ver 1.0b
+--------------------
+
+CUSTOMER ADMIN FUNCTIONS
+========================
+
+add a customer
+==============
+
+POST ---- > jouple.net:8090/edenapi/dash/addcustomer
+
+JSON format example :
+
+{
+        "emailIDCus": "johndoe@tescos.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "address": "55 The Parade, High Street",
+        "emirate": "UAE",
+        "poBox": "test4",
+        "mobileNumber": "342-583-283-999",
+        "officeNumber": "87867687",
+        "tradeLicence": 1,
+        "staff_email": "avaesshah@gmail.com",
+        "company": {
+            "companyName": "testing4@mcdonalds.com"
+        }
+}
+
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "customer and company successfully added to the database"
+    },
+    "success": true,
+    "data": {
+        "customerID": 21,
+        "emailIDCus": "johndoe@tescos.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "address": "55 The Parade, High Street",
+        "emirate": "UAE",
+        "poBox": "test4",
+        "mobileNumber": "342-583-283-999",
+        "officeNumber": "87867687",
+        "tradeLicence": 1,
+        "staff_email": "avaesshah@gmail.com",
+        "staff_employee_id": 0,
+        "company": {
+            "companyID": 10,
+            "customerID": 21,
+            "companyName": "testing4@mcdonalds.com",
+            "companyLogo": null
+        }
+    }
+}
+
+Note ---> a new customer record also automatically generates a new company record under customer's name
+
+***************************************************************
+get a customer's details
+========================
+this function allows you to obtain the customer's details along with all the
+associated companies, products and product photos owned by the customer
+
+POST -------> jouple.net:8090/edenapi/dash/getcustomer
+
+JSON format example :
+
+{
+       "emailIDCus": "johndoe@tescos.com",
+       "staff_email": "avaesshah@gmail.com"
+
+ }
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Customer details successfully obtained from database"
+    },
+    "success": true,
+    "data": {
+        "customerID": 21,
+        "emailIDCus": "johndoe@tescos.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "address": "55 The Parade, High Street",
+        "emirate": "UAE",
+        "poBox": "test4",
+        "mobileNumber": "342-583-283-999",
+        "officeNumber": "87867687",
+        "tradeLicence": 1,
+        "staff_email": "avaesshah@gmail.com",
+        "staff_employee_id": 0,
+        "productList": [
+            [
+                {
+                    "productID": 1,
+                    "companyID": 10,
+                    "description": "Pepsi",
+                    "origin": "UK",
+                    "priceRange": "1.50"
+                },
+
+                },
+                {
+                    "productID": 4,
+                    "companyID": 10,
+                    "description": "Dr Pepper",
+                    "origin": "TURK",
+                    "priceRange": "2.00"
+                }
+            ]
+        ],
+        "companyList": [
+            {
+                "companyID": 10,
+                "customerID": 21,
+                "companyName": "testing4@mcdonalds.com",
+                "companyLogo": null
+            }
+        ],
+        "productPhotoLists": [
+            [
+                {
+                    "productPhotoId": 1,
+                    "productID": 1,
+                    "description": "Pepsi Photo 1",
+                    "productPhoto": null
+                },
+
+            [
+                {
+                    "productPhotoId": 6,
+                    "productID": 4,
+                    "description": "Dr Pepper Photo 1",
+                    "productPhoto": null
+                }
+            ]
+        ]
+    }
+}
+
+get all customers details
+=========================
+
+POST -------> jouple.net:8090/edenapi/dash/getallcustomers
+
+JSON format example :
+{
+        "emailIDCus": "*",
+       "staff_email": "avaesshah@gmail.com"
+
+ }
+
+this will return a list of all customers on the database in JSON format
+
+sample response :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": [
+        {
+            "customerID": 1,
+            "emailIDCus": "test@test.com",
+            "firstName": "Test1",
+            "lastName": "Test2",
+            "address": "test3",
+            "emirate": "hellow",
+            "poBox": "test4",
+            "mobileNumber": "123",
+            "officeNumber": "123",
+            "tradeLicence": 1
+        },
+        {
+            "customerID": 13,
+            "emailIDCus": "dale6@mcdonalds.com",
+            "firstName": "John",
+            "lastName": "Khan",
+            "address": "test3",
+            "emirate": "hellow",
+            "poBox": "test4",
+            "mobileNumber": "123",
+            "officeNumber": "123",
+            "tradeLicence": 0
+        }
+
+... all customer records
+
+ }
+    ]
+}
+
+****************************************************************
+
+update a customer details
+=========================
+
+POST ------- > jouple.net:8090/edenapi/dash/updatecustomer
+
+JSON format example :
+{
+
+            "staff_email": "avaesshah@gmail.com",
+            "emailIDCus": "test@test.com",
+            "firstName": "Arnold",
+            "lastName": "Schwarzenegger",
+            "address": "HQ - Black OPs",
+            "emirate": "USA",
+            "poBox": "W3",
+            "mobileNumber": "123 123 5646",
+            "officeNumber": "873 873 2342",
+            "tradeLicence": 1
+}
+
+note: employee number cannot be changed neither can emailID
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "customer details successfully updated to the database"
+    },
+    "success": true,
+    "data": {
+        "customerID": 1,
+        "emailIDCus": "test@test.com",
+        "firstName": "Arnold",
+        "lastName": "Schwarzenegger",
+        "address": "HQ - Black OPs",
+        "emirate": "USA",
+        "poBox": "W3",
+        "mobileNumber": "123 123 5646",
+        "officeNumber": "873 873 2342",
+        "tradeLicence": 1,
+        "staff_email": "avaesshah@gmail.com",
+        "staff_employee_id": 0,
+        "company": {
+            "companyID": 0,
+            "customerID": 0,
+            "companyName": "test@test.com",
+            "companyLogo": null
+        }
+    }
+}
+
+
+===============================================================
+delete customer from database
+=============================
+POST ----------------------> jouple.net:8090/edenapi/dash/deletecustomer
+
+JSON format example :
+
+{
+            "staff_email": "avaesshah@gmail.com",
+            "customerID": 51
+}
+
+successful return response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "customer and all associated records (companies, products and product photos)  have successfully been deleted from the database"
+    },
+    "success": true
+}
+
+Note : the associated companies, products and product photos will automatically be deleted when the customer
+is deleted.
+

@@ -1,0 +1,201 @@
+Eden Master ver 1.0b
+--------------------
+
+PRODUCT ADMIN FUNCTIONS
+=======================
+
+add a product
+=============
+
+POST ---- > jouple.net:8090/edenapi/dash/addproduct
+
+JSON format example :
+
+{
+
+        "staff_email": "avaesshah@gmail.com",
+        "companyID": 16,
+        "description": "Pespi Cola",
+        "origin": "UK",
+        "priceRange": "1.20 - 1.60"
+
+}
+
+successful JSON response format :
+{
+    "response": {
+        "status": "Success",
+        "message": "Product successfully added to the database"
+    },
+    "success": true,
+    "data": {
+        "productID": 11,
+        "companyID": 16,
+        "description": "Pespi Cola",
+        "origin": "UK",
+        "priceRange": "1.20 - 1.60",
+        "staff_email": "avaesshah@gmail.com"
+    }
+}
+
+***************************************************************
+
+GET ALL PRODUCTS LISTED UNDER COMPANY ID
+========================================
+
+
+POST -------> jouple.net:8090/edenapi/dash/getproducts
+
+JSON format example :
+
+{
+    "staff_email" : "avaesshah@gmail.com",
+    "companyID": 16
+}
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": [
+        {
+            "productID": 13,
+            "companyID": 16,
+            "description": "Coke Zero 500ML",
+            "origin": "UK",
+            "priceRange": "1.70 - 1.90"
+        },
+        {
+            "productID": 14,
+            "companyID": 16,
+            "description": "Sprite",
+            "origin": "UK",
+            "priceRange": "1.70 - 1.90"
+        }
+    ]
+}
+
+
+***************************************************************
+GET PRODUCT DETAILS BY PRODUCT ID
+==================================
+
+
+POST -------> jouple.net:8090/edenapi/dash/getproduct
+
+JSON format example :
+
+{
+    "staff_email" : "avaesshah@gmail.com",
+    "productID": 16
+}
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": {
+        "productID": 0,
+        "companyID": 16,
+        "description": "Coke Zero 500ML",
+        "origin": "UK",
+        "priceRange": "1.70 - 1.90",
+        "photoList": [
+            {
+                "productPhotoId": 17,
+                "productID": 13,
+                "description": "Coke",
+                "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_12591872_the_best_kebab_van.jpg"
+            },
+            {
+                "productPhotoId": 18,
+                "productID": 13,
+                "description": "Coke",
+                "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_91250944_the_best_kebab_van.jpg"
+            },
+            {
+                "productPhotoId": 19,
+                "productID": 13,
+                "description": "Coke",
+                "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_75661312_the_best_kebab_van.jpg"
+            },
+            {
+                "productPhotoId": 20,
+                "productID": 13,
+                "description": "Coke",
+                "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_75931392_the_best_kebab_van.jpg"
+            }
+        ]
+    }
+}
+
+
+
+****************************************************************
+
+UPDATE PRODUCT
+==============
+
+POST ------- > jouple.net:8090/edenapi/dash/updateproduct
+
+JSON format example :
+
+{
+
+           "staff_email": "avaesshah@gmail.com",
+            "productID": 11,
+            "priceRange": "2.60 - 2.60"
+}
+
+note: product_id and company_id cannot be changed
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "product details successfully updated to the database"
+    },
+    "success": true,
+    "data": {
+        "productID": 11,
+        "companyID": 16,
+        "description": "test",
+        "origin": "UK",
+        "priceRange": "2.60 - 2.60",
+        "staff_email": "avaesshah@gmail.com"
+    }
+}
+
+===============================================================
+DELETE PRODUCT
+==============
+POST ----------------------> jouple.net:8090/edenapi/dash/deleteproduct
+
+JSON format example :
+{
+
+        "staff_email": "avaesshah@gmail.com",
+        "productID": 16
+
+}
+
+successful return response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Product and all associated records (product photos)  have successfully been deleted from the database"
+    },
+    "success": true
+}

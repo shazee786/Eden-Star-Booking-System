@@ -1,0 +1,153 @@
+Eden Master ver 1.0b
+--------------------
+
+USER ADMIN FUNCTIONS
+====================
+
+add a user
+==========
+
+POST ---- > http://jouple.net:8090/edenapi/dash/adduser
+
+JSON format example :
+
+ {
+ 	"staff_email" : "edenstaradmin@gomail.com",
+        "emailID": "avaesshah@icloud.com",
+        "firstName": "Tom",
+        "lastName": "Cruise",
+        "address": "50 Pentgon Building",
+        "dob": "01/01/1980",
+        "phoneNumber": "999",
+        "password": "root",
+        "passwordHint": "admin",
+        "isblocked": 0,
+        "profileUrl": "test",
+        "userLevel": "admin"
+}
+
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "user successfully added to the database"
+    },
+    "success": true
+}
+
+***************************************************************
+get a user's details
+====================
+
+
+POST -------> http://jouple.net:8090/edenapi/dash/getuser
+
+JSON format example :
+
+{
+ 	"staff_email" : "avaesshah@gmail.com",
+        "emailID": "shazee.shah@gmail.com"
+}
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": {
+        "employeeID": 2,
+        "emailID": "shazee.shah@gmail.com",
+        "firstName": "Avaes",
+        "lastName": "Shah",
+        "address": "500 Carlton STreet",
+        "dob": "test",
+        "phoneNumber": "123123123",
+        "password": "root",
+        "passwordHint": "something",
+        "isblocked": 0,
+        "profileUrl": "test",
+        "userLevel": "sales"
+    }
+}
+
+get all users details
+=====================
+
+POST -------> http://jouple.net:8090/edenapi/dash/getuser
+
+JSON format example :
+
+{
+ 	"staff_email" : "avaesshah@gmail.com",
+        "emailID": "*"
+}
+
+this will return a list of all users on the database in JSON format
+
+{
+ 	"staff_email" : "avaesshah@gmail.com",
+        "emailID": "admin"
+}
+
+"emailID" can be "sales" or "manager" or "manager_admin" or "accounts"
+
+this will return all the users in those particular departments
+
+****************************************************************
+
+update a user details
+=====================
+
+POST ------- > http://jouple.net:8090/edenapi/dash/updateuser
+
+JSON format example :
+
+        {
+            "staff_email": "avaesshah@gmail.com",
+            "emailID": "edenstaremail@gmail.com",
+            "address": "65 Clayton Avenue, Hayes, Middlesex",
+            "dob": "33/05/1980",
+            "userLevel": "manager"
+        }
+
+note: employee number cannot be changed neither can emailID
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "user details successfully updated to the database"
+    },
+    "success": true
+}
+
+===============================================================
+delete user from database
+=========================
+POST ----------------------> http://jouple.net:8090/edenapi/dash/deleteuser
+
+JSON format example :
+
+        {
+            "staff_email": "avaesshah@gmail.com",
+            "emailID": "edenstaremail@gmail.com"
+        }
+
+successful return response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "user successfully deleted from the database"
+    },
+    "success": true
+}
+
+

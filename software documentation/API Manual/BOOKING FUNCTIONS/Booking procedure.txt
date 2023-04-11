@@ -1,0 +1,48 @@
+Booking Procedure
+==================
+
+step 1 Location query
+step 2 Add a quote
+step 3 Submit a quote
+step 4 Application for booking
+step 5 Booking management
+
+
+1. Location Query (Android/Web)
+=================
+1: Select a location
+
+2: Select te start date and end date for the selected location and submit location query
+
+3. Select one kiosk (available) 
+
+
+2. Add a Quote (Android/Web)
+==============
+Use the following information from Location Query (kiosk id, start date, end date) and add customer details
+
+1. Enter basic customer details : customer email, first name, last name, company name (optional) and send the information to ADD A QUOTE function in API
+
+the customer will receive an email with the quotation
+
+
+3.Submit a quote (Android/Web)
+=================
+Once the customer is happy to proceed with the quotation he/she asks for a booking application to be submitted
+for review
+
+Here the full customer details, product information and product photos are added, also the deposit is scanned - this is explained in the  SUBMIT A QUOTE API manual step by step
+
+
+
+4. Application for booking (Web)
+================================
+This is when the manager receives the application he will review the products etc and decide whether to approve or decline an application. If the application is approved it becomes a booking, the customer automatically recives a booking summary in the email. The lease agreement contract is sent out to the customer, who signs it and returns it with a deposit.
+
+5. Booking management (Web)
+===========================
+Accounts department handle the deposit and lease payments here
+
+
+
+ 

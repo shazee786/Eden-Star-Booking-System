@@ -1,0 +1,86 @@
+Eden Master ver 1.0b
+--------------------
+
+RATE ADMIN FUNCTIONS
+========================
+
+***************************************************************
+get RATE information
+====================
+This will return rate information for a given rate_id and corresponding
+zone information under which the rate exists
+
+
+POST -------> jouple.net:8090/edenapi/dash/getrate
+
+JSON format example :
+{
+
+        "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "rateID": 52
+        }
+
+}
+
+Response :
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": {
+        "zoneID": 46,
+        "zoneNumber": 3,
+        "zoneName": null,
+        "locationID": 13,
+        "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "rateID": 52,
+            "discountDurationDays": 365,
+            "rateCoeff": -0.41,
+            "rateMax": 600,
+            "rateMin": 450,
+            "zoneID": 46
+        },
+        "kioskList": [] <----- this has been disabled for the get RATE function
+    }
+}
+
+****************************************************************
+update RATE details
+===================
+This function allows the rate to be changed for a given zone
+
+POST ------- > jouple.net:8090/edenapi/dash/updaterate
+
+JSON format example :
+
+{
+
+       "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "rateID": 47,
+            "discountDurationDays": 1200, < --- changable
+            "rateMax": 250, <--- changeable
+            "rateMin": 100 <--- changeable
+        }
+    }
+
+note: rate_id cannot be changed. The rate coefficient (slope / gradient) is automatically 
+calculated by the API
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Rate details successfully updated to the database"
+    },
+    "success": true
+}
+
+
+

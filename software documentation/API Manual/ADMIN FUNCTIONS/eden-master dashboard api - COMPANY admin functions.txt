@@ -1,0 +1,197 @@
+Eden Master ver 1.0b
+--------------------
+
+COMPANY ADMIN FUNCTIONS
+=======================
+
+add a company
+=============
+
+POST ---- > jouple.net:8090/edenapi/dash/addcompany
+
+JSON format example :
+
+{
+
+        "companyName": "The Kew Bridge",
+        "staff_email": "avaesshah@gmail.com",
+        "customerID": 19
+
+}
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "company successfully added to the database"
+    },
+    "success": true,
+    "data": {
+        "companyID": 20,
+        "customerID": 19,
+        "companyName": "The Kew Bridge",
+        "companyLogo": null,
+        "staff_email": "avaesshah@gmail.com",
+        "email_id_cus": "testing4@mcdonalds.com"
+    }
+}
+
+***************************************************************
+get companies registered under customer's ID
+============================================
+
+
+POST -------> jouple.net:8090/edenapi/dash/getcompany
+
+JSON format example :
+{
+  "staff_email": "avaesshah@gmail.com",
+  "customerID": 19
+}
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Customer ID 19 has 4 companies listed"
+    },
+    "success": true,
+    "data": [
+        {
+            "companyID": 14,
+            "customerID": 19,
+            "companyName": "The Bridge",
+            "companyLogo": null
+        },
+        {
+            "companyID": 16,
+            "customerID": 19,
+            "companyName": "The Best Kebab Van",
+            "companyLogo": null
+        },
+        {
+            "companyID": 17,
+            "customerID": 19,
+            "companyName": "Chicken Cottage",
+            "companyLogo": null
+        },
+        {
+            "companyID": 18,
+            "customerID": 19,
+            "companyName": "The Best Kebabs",
+            "companyLogo": null
+        }
+    ]
+}
+
+get all companies
+=================
+
+POST -------> jouple.net:8090/edenapi/dash/getallcompanies
+
+JSON format example :
+
+{
+ 	"staff_email" : "avaesshah@gmail.com"
+
+}
+
+
+Response :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": [
+        {
+            "companyID": 14,
+            "customerID": 19,
+            "companyName": "The Bridge",
+            "companyLogo": null
+        },
+        {
+            "companyID": 16,
+            "customerID": 19,
+            "companyName": "The Best Kebab Van",
+            "companyLogo": null
+        },
+        {
+            "companyID": 17,
+            "customerID": 19,
+            "companyName": "Chicken Cottage",
+            "companyLogo": null
+        },
+        {
+            "companyID": 18,
+            "customerID": 19,
+            "companyName": "The Best Kebabs",
+            "companyLogo": null
+        }
+    ]
+}
+
+****************************************************************
+
+update a company details
+========================
+
+POST ------- > jouple.net:8090/edenapi/dash/updatecompany
+
+JSON format example :
+
+{
+        "companyID": 18,
+        "companyName": "The Best Kebabs",
+        "staff_email": "avaesshah@gmail.com"
+
+}
+
+note: employee number cannot be changed neither can emailID
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "company details successfully updated to the database"
+    },
+    "success": true,
+    "data": {
+        "companyID": 18,
+        "customerID": 19,
+        "companyName": "The Best Kebabs",
+        "companyLogo": null,
+        "staff_email": "avaesshah@gmail.com",
+        "email_id_cus": "testing4@mcdonalds.com"
+    }
+}
+
+===============================================================
+delete company from database
+============================
+POST ----------------------> jouple.net:8090/edenapi/dash/deletecompany
+
+JSON format example :
+{
+
+        "staff_email": "avaesshah@gmail.com",
+        "companyID": 10
+
+}
+
+successful return response:
+{
+    "response": {
+        "status": "Success",
+        "message": "company and all associated records (products and product photos)  have successfully been deleted from the database"
+    },
+    "success": true
+}
+
+Note : all associated products and product photos are also deleted

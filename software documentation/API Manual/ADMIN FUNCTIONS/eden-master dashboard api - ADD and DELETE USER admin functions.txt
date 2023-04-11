@@ -1,0 +1,62 @@
+Eden Master ver 1.0b
+--------------------
+
+USER ADMIN FUNCTIONS
+====================
+
+add a user
+==========
+
+POST ---- > http://jouple.net:8090/edenapi/dash/adduser
+
+JSON format example :
+
+ {
+ 	"staff_email" : "edenstaradmin@gomail.com",
+        "emailID": "avaesshah@icloud.com",
+        "firstName": "Tom",
+        "lastName": "Cruise",
+        "address": "50 Pentgon Building",
+        "dob": "01/01/1980",
+        "phoneNumber": "999",
+        "password": "root",
+        "passwordHint": "admin",
+        "isblocked": 0,
+        "profileUrl": "test",
+        "userLevel": "admin"
+}
+
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "user successfully added to the database"
+    },
+    "success": true
+}
+
+
+delete user from database
+=========================
+POST ----------------------> http://jouple.net:8090/edenapi/dash/deleteuser
+
+JSON format example :
+
+        {
+            "staff_email": "avaesshah@gmail.com",
+            "emailID": "edenstaremail@gmail.com"
+        }
+
+successful return response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "user successfully deleted from the database"
+    },
+    "success": true
+}
+
+

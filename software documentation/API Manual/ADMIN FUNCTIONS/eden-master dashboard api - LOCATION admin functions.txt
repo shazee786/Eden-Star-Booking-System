@@ -1,0 +1,412 @@
+Eden Master ver 1.0b
+--------------------
+
+LOCATION ADMIN FUNCTIONS
+========================
+
+
+GET Location Information
+========================
+Hit JSON to ----- > jouple.net:8090/edenapi/dash/getlocationfield
+
+
+JSON input format:
+
+{
+            "staff_email_id": "avaesshah@gmail.com",
+            "showField": "zone",
+            "location_id" : 12
+}
+
+"showField" : "kiosk" or "rate" or "zone"
+
+
+JSON reponse sample:
+
+
+{
+    "response": {
+        "status": "Success",
+        "message": "zone data successfully obtained"
+    },
+    "success": true,
+    "data": {
+        "staff_email_id": "avaesshah@gmail.com",
+        "location_id": 12,
+        "showField": "zone",
+        "zone": [
+            {
+                "zoneID": 41,
+                "zoneNumber": 8,
+                "zoneName": "Orange Zone",
+                "locationID": 12
+            },
+            {
+                "zoneID": 42,
+                "zoneNumber": 2,
+                "zoneName": "Violet Zone",
+                "locationID": 12
+            },
+            {
+                "zoneID": 43,
+                "zoneNumber": 3,
+                "zoneName": "Yellow Zone",
+                "locationID": 12
+            },
+            {
+                "zoneID": 58,
+                "zoneNumber": 4,
+                "zoneName": "JD Sports Zone",
+                "locationID": 12
+            },
+            {
+                "zoneID": 59,
+                "zoneNumber": 5,
+                "zoneName": "Rimmel Zone",
+                "locationID": 12
+            }
+        ]
+    }
+}
+
+
+
+add a LOCATION
+==============
+This function generates the location, zones, kiosks and the corresponding rates for each
+zone
+
+
+POST ---- > jouple.net:8090/edenapi/dash/addlocation
+
+JSON format example, here we specify the location name, authorising staff (admin only), 
+number of rows and columns for the kiosk grid (9 in the example below), the rates for each
+zone and because there are three rates specified there can only be three zones :
+
+{
+        "staff_email_id": "avaesshah@gmail.com",
+        "locationName": "Heathrow Airport",
+        "locationArea": "Terminal 3",
+	"locationMap": " < your uploaded map in Base64 goes here >",
+        "num_max_rows": 2,
+        "num_max_columns": 2,
+        "rateList": [
+            {
+    
+                "discountDurationDays": 365,
+                "rateMax": 500,
+                "rateMin": 350
+
+            },
+            {
+
+                "discountDurationDays": 365,
+                "rateMax": 700,
+                "rateMin": 550
+ 
+            },
+            {
+      
+                "discountDurationDays": 365,
+                "rateMax": 600,
+                "rateMin": 450
+
+            },
+            {
+                "discountDurationDays": 365,
+                "rateMax": 1600,
+                "rateMin": 1200
+
+            }
+        ]
+}
+
+
+
+JSON Response example :
+
+
+{
+    "response": {
+        "status": "Success",
+        "message": "location, rates, zones and kiosks successfully generated on database"
+    },
+    "success": true,
+    "data": {
+        "locationID": 29,
+        "locationName": "Heathrow Airport",
+        "locationArea": "Terminal 3",
+        "mapURL": "http://jouple.net/eden-master/images/heathrow_airport/map_23959552_heathrow_airport.jpg",
+        "staff_email_id": "avaesshah@gmail.com",
+        "num_max_rows": 2,
+        "num_max_columns": 2,
+        "kioskList": [
+            {
+                "kioskID": 337,
+                "gridLocationRow": 1,
+                "gridLocationColumn": 1,
+                "kioskNumber": 1,
+                "zoneID": 105
+            },
+            {
+                "kioskID": 338,
+                "gridLocationRow": 1,
+                "gridLocationColumn": 2,
+                "kioskNumber": 2,
+                "zoneID": 105
+            },
+            {
+                "kioskID": 339,
+                "gridLocationRow": 2,
+                "gridLocationColumn": 1,
+                "kioskNumber": 3,
+                "zoneID": 105
+            },
+            {
+                "kioskID": 340,
+                "gridLocationRow": 2,
+                "gridLocationColumn": 2,
+                "kioskNumber": 4,
+                "zoneID": 105
+            }
+        ],
+        "zoneList": [
+            {
+                "zoneID": 105,
+                "zoneNumber": 1,
+                "locationID": 29
+            },
+            {
+                "zoneID": 106,
+                "zoneNumber": 2,
+                "locationID": 29
+            },
+            {
+                "zoneID": 107,
+                "zoneNumber": 3,
+                "locationID": 29
+            },
+            {
+                "zoneID": 108,
+                "zoneNumber": 4,
+                "locationID": 29
+            }
+        ],
+        "rateList": [
+            {
+                "rateID": 111,
+                "discountDurationDays": 365,
+                "rateCoeff": -0.410958904109589,
+                "rateMax": 500,
+                "rateMin": 350,
+                "zoneID": 105
+            },
+            {
+                "rateID": 112,
+                "discountDurationDays": 365,
+                "rateCoeff": -0.410958904109589,
+                "rateMax": 700,
+                "rateMin": 550,
+                "zoneID": 106
+            },
+            {
+                "rateID": 113,
+                "discountDurationDays": 365,
+                "rateCoeff": -0.410958904109589,
+                "rateMax": 600,
+                "rateMin": 450,
+                "zoneID": 107
+            },
+            {
+                "rateID": 114,
+                "discountDurationDays": 365,
+                "rateCoeff": -1.095890410958904,
+                "rateMax": 1600,
+                "rateMin": 1200,
+                "zoneID": 108
+            }
+        ]
+    }
+}
+
+
+***************************************************************
+get all LOCATION information
+============================
+This will return all the kiosks, rates and zones available under a particular location
+
+
+POST -------> jouple.net:8090/edenapi/dash/getlocation
+
+JSON format example :
+
+
+{
+
+        "staff_email_id": "avaesshah@gmail.com",
+        "locationID": 29
+
+}
+
+
+Response :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": {
+        "locationID": 29,
+        "locationName": "heathrow airport",
+        "locationArea": "terminal 3",
+        "mapURL": "http://jouple.net/eden-master/images/heathrow_airport/map_23959552_heathrow_airport.jpg",
+        "staff_email_id": "avaesshah@gmail.com",
+        "num_max_rows": 2,
+        "num_max_columns": 2,
+        "kioskList": [
+            {
+                "kioskID": 337,
+                "gridLocationRow": 1,
+                "gridLocationColumn": 1,
+                "kioskNumber": 1,
+                "zoneID": 105
+            },
+            {
+                "kioskID": 338,
+                "gridLocationRow": 1,
+                "gridLocationColumn": 2,
+                "kioskNumber": 2,
+                "zoneID": 105
+            },
+            {
+                "kioskID": 339,
+                "gridLocationRow": 2,
+                "gridLocationColumn": 1,
+                "kioskNumber": 3,
+                "zoneID": 105
+            },
+            {
+                "kioskID": 340,
+                "gridLocationRow": 2,
+                "gridLocationColumn": 2,
+                "kioskNumber": 4,
+                "zoneID": 105
+            }
+        ],
+        "zoneList": [
+            {
+                "zoneID": 105,
+                "zoneNumber": 1,
+                "locationID": 29
+            },
+            {
+                "zoneID": 106,
+                "zoneNumber": 2,
+                "locationID": 29
+            },
+            {
+                "zoneID": 107,
+                "zoneNumber": 3,
+                "locationID": 29
+            },
+            {
+                "zoneID": 108,
+                "zoneNumber": 4,
+                "locationID": 29
+            }
+        ],
+        "rateList": [
+            {
+                "rateID": 111,
+                "discountDurationDays": 365,
+                "rateCoeff": -0.410958904109589,
+                "rateMax": 500,
+                "rateMin": 350,
+                "zoneID": 105
+            },
+            {
+                "rateID": 112,
+                "discountDurationDays": 365,
+                "rateCoeff": -0.410958904109589,
+                "rateMax": 700,
+                "rateMin": 550,
+                "zoneID": 106
+            },
+            {
+                "rateID": 113,
+                "discountDurationDays": 365,
+                "rateCoeff": -0.410958904109589,
+                "rateMax": 600,
+                "rateMin": 450,
+                "zoneID": 107
+            },
+            {
+                "rateID": 114,
+                "discountDurationDays": 365,
+                "rateCoeff": -1.095890410958904,
+                "rateMax": 1600,
+                "rateMin": 1200,
+                "zoneID": 108
+            }
+        ]
+    }
+}
+
+==========================================================================
+update LOCATION details
+=======================
+
+POST ------- > jouple.net:8090/edenapi/dash/updatelocation
+
+JSON format example :
+
+{
+
+  "staff_email_id": "avaesshah@gmail.com",
+  "locationID": 29,
+  "locationName" : "Heathrow Airport",
+  "locationArea" : "Terminal 4",
+  "locationMap" : "<Base64 jpg image of map>"
+
+}
+
+note: location_id cannot be changed
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Location details successfully updated to the database"
+    },
+    "success": true
+}
+
+=======================================================================
+delete LOCATION from database
+=============================
+POST ----------------------> jouple.net:8090/edenapi/dash/deletelocation
+
+JSON format example :
+
+{
+
+  "staff_email_id": "avaesshah@gmail.com",
+  "locationID": 15
+
+}
+
+
+successful return response:
+{
+    "response": {
+        "status": "Success",
+        "message": "location and associated kiosks, rates and zones deleted from the database"
+    },
+    "success": true
+}
+
+

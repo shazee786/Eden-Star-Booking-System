@@ -1,0 +1,181 @@
+Eden Master ver 1.0b - BOOKING QUERY FUNCTION
+---------------------------------------------
+
+1. GET ALL LOCATIONS
+=================
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/dash/getalllocations
+
+
+JSON request format :
+
+{
+        "staff_email_id": "avaesshah@gmail.com"
+  
+}
+
+
+JSON response sample:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "9 locations successfully retrieved from the database"
+    },
+    "success": true,
+    "data": [
+        {
+            "locationID": 12,
+            "locationName": "HEATHROW AIRPORT",
+            "locationArea": "Terminal 4",
+            "mapURL": "http://jouple.net/eden-master/images/heathrow_airport/map_57829376_heathrow_airport.jpg"
+        },
+        {
+            "locationID": 13,
+            "locationName": "STANSTED AIRPORT",
+            "locationArea": "Terminal 1",
+            "mapURL": "http://jouple.net/eden-master/images/stansted_airport/map_78939648_stansted_airport.jpg"
+        },
+
+   ... all locations ..
+
+        },
+        {
+            "locationID": 33,
+            "locationName": "BAHAH SECTOR",
+            "locationArea": "zone 3",
+            "mapURL": "http://jouple.net/eden-master/images/bahah_sector/map_5178368_bahah_sector.jpg"
+        }
+    ]
+}
+
+
+2. GET LOCATION AVAILBILITY INFORMATION
+====================================
+
+use this infomation to build a grid showing kiosk availability colours and zones
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/querylocation
+
+JSON format :
+
+{
+        "staff_email_id": "avaesshah@gmail.com",
+        "location_id": 12,
+        "startDate": "01/08/2019",
+        "endDate": "06/08/2019"
+  
+}
+
+JSON RESPONSE SAMPLE :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Availability for location ID: 12 for dates from : [01/08/2019] to [06/08/2019]"
+    },
+    "success": true,
+    "data": [
+        {
+            "locationName": "HEATHROW AIRPORT",
+            "locationArea": "Terminal 4",
+            "locationMap": "http://jouple.net/eden-master/images/heathrow_airport/map_57829376_heathrow_airport.jpg",
+            "zoneNumber": 8,
+            "zoneName": "Orange Zone",
+            "zoneColour": "#b842f5",
+            "availability_color": "#0ee644",
+            "lease_total": 595.1,
+            "kioskID": 143,
+            "kioskNumber": 8,
+            "availability": 4,
+            "row": 3,
+            "column": 2
+        },
+
+... all kiosks
+
+        {
+            "locationName": "HEATHROW AIRPORT",
+            "locationArea": "Terminal 4",
+            "locationMap": "http://jouple.net/eden-master/images/heathrow_airport/map_57829376_heathrow_airport.jpg",
+            "zoneNumber": 8,
+            "zoneName": "Orange Zone",
+            "zoneColour": "#b842f5",
+            "availability_color": "#0ee644",
+            "lease_total": 595.1,
+            "kioskID": 143,
+            "kioskNumber": 8,
+            "availability": 4,
+            "row": 3,
+            "column": 2
+        }
+    ]
+}
+
+
+3. GET KIOSK AVAILBILITY INFORMATION
+=================================
+
+this will show you all the availability and pricing information about a kiosk
+
+Hit JSON POST to : http://jouple.net:8090/edenapi/booking/querykiosk
+
+{
+        "staff_email_id": "avaesshah@gmail.com",
+        "kiosk_id": 150,
+        "startDate": "01/08/2019",
+        "endDate": "06/08/2019"
+  
+}
+
+
+
+JSON RESPONSE SAMPLE :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Availability for kiosk ID: 150 for dates from : [01/08/2019] to [06/08/2019]"
+    },
+    "success": true,
+    "data": {
+        "kioskID": 150,
+        "kioskNumber": 6,
+        "availability_code": 4,
+        "location_name": "STANSTED AIRPORT",
+        "location_area": "Terminal 1",
+        "zone": {
+            "zoneNumber": 1,
+            "zoneName": "Gold Zone"
+        },
+        "daily_rate": 199.16,
+        "lease_total": 1194.96,
+        "lease_duration": 6,
+        "dateList": [
+            {
+                "kioskCalanderDATE": "01/08/2019",
+                "available": true
+            },
+            {
+                "kioskCalanderDATE": "02/08/2019",
+                "available": true
+            },
+            {
+                "kioskCalanderDATE": "03/08/2019",
+                "available": true
+            },
+            {
+                "kioskCalanderDATE": "04/08/2019",
+                "available": true
+            },
+            {
+                "kioskCalanderDATE": "05/08/2019",
+                "available": true
+            },
+            {
+                "kioskCalanderDATE": "06/08/2019",
+                "available": true
+            }
+        ]
+    }
+}

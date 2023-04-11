@@ -1,0 +1,136 @@
+Eden Master ver 1.0b
+--------------------
+
+PRODUCT PHOTO ADMIN FUNCTIONS
+=============================
+add a product photo
+===================
+
+POST ---- > jouple.net:8090/edenapi/dash/addproductphoto
+
+JSON format example :
+
+
+{
+   	"staff_email": "avaesshah@gmail.com",
+        "productID": 13,
+        "description": "Coke Can",
+        "productPhoto": "<base64 encoded jpg image>"
+}
+
+
+successful JSON response format :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "Product photo successfully added to the database"
+    },
+    "success": true,
+    "data": {
+        "productPhotoId": 28,
+        "productID": 13,
+        "description": "Coke Can",
+        "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke__38429952_the_best_kebab_van.jpg",
+        "staff_email": "avaesshah@gmail.com"
+    }
+}
+
+***************************************************************
+get all product photos under a product ID
+=========================================
+
+POST -------> jouple.net:8090/edenapi/dash/getproductphotos
+
+JSON format example :
+
+
+ {
+     "staff_email": "avaesshah@gmail.com",
+     "productID" : 13
+
+ }
+
+
+Response :
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": [
+        {
+            "productPhotoId": 17,
+            "productID": 13,
+            "description": "Coke",
+            "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_12591872_the_best_kebab_van.jpg"
+        },
+        {
+            "productPhotoId": 18,
+            "productID": 13,
+            "description": "Coke",
+            "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_91250944_the_best_kebab_van.jpg"
+        },
+        {
+            "productPhotoId": 19,
+            "productID": 13,
+            "description": "Coke",
+            "photoPhotoURL": "http://jouple.net/eden-master/product_photos/the_best_kebab_van/product_photo_coke_75661312_the_best_kebab_van.jpg"
+        }
+    ]
+}
+
+****************************************************************
+update a product photo details
+==============================
+
+POST ------- > jouple.net:8090/edenapi/dash/updateproductphoto
+
+JSON format example :
+
+
+ {
+   "staff_email": "avaesshah@gmail.com",
+   "productPhotoId" : 28,
+   "description": "Pepsi 300ml",
+   "productPhoto":"<Base 64 encoded jpg image goes here>"
+ }
+
+note: product_photo_id and product_id cannot be changed
+
+successful return response :
+
+{
+    "response": {
+        "status": "Success",
+        "message": "product photo details successfully updated to the database"
+    },
+    "success": true
+}
+
+===============================================================
+delete product photo from database
+==================================
+POST ----------------------> jouple.net:8090/edenapi/dash/deleteproductphoto
+
+JSON format example :
+
+ {
+   "staff_email": "avaesshah@gmail.com",
+   "productPhotoId" : 27
+ }
+
+
+successful return response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "product photo has been successfully deleted from the database"
+    },
+    "success": true
+}
+
+

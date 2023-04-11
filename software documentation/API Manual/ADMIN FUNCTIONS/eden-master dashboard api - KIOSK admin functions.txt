@@ -1,0 +1,151 @@
+Eden Master ver 1.0b
+--------------------
+
+KIOSK ADMIN FUNCTIONS
+=====================
+This adds a kiosk to under a given zone_id. The kiosk number, row and column coordinates
+are automatically generated
+
+add a KIOSK
+===========
+
+POST --------- > jouple.net:8090/edenapi/dash/addkiosk
+
+{
+
+        "zoneID": 44,
+        "staff_email_id": "avaesshah@gmail.com"
+ 
+}
+
+JSON Response example :
+{
+    "response": {
+        "status": "Success",
+        "message": "New kiosk has been added to the database successfully"
+    },
+    "success": true,
+    "data": {
+        "kioskID": 274,
+        "gridLocationRow": 5,
+        "gridLocationColumn": 7,
+        "isLocked": 0,
+        "isVoid": 0,
+        "kioskNumber": 35,
+        "zoneID": 44
+    }
+}
+
+***************************************************************
+get KIOSK information
+=====================
+By providing the kiosk_id, the system will return the kiosk, 
+rate and zone information
+
+POST --------- > jouple.net:8090/edenapi/dash/getkiosk
+
+{
+
+        "staff_email_id": "avaesshah@gmail.com",
+        "kioskID" : 200
+
+}
+
+
+
+
+JSON Response :
+
+{
+    "response": {
+        "status": "200",
+        "code": "10000-1",
+        "message": "OK"
+    },
+    "success": true,
+    "data": {
+        "zoneID": 47,
+        "zoneNumber": 1,
+        "zoneName": null,
+        "locationID": 14,
+        "staff_email_id": "avaesshah@gmail.com",
+        "rate": {
+            "rateID": 53,
+            "discountDurationDays": 365,
+            "rateCoeff": -0.05,
+            "rateMax": 120,
+            "rateMin": 100,
+            "zoneID": 47
+        },
+        "kioskList": [
+            {
+                "kioskID": 200,
+                "gridLocationRow": 7,
+                "gridLocationColumn": 1,
+                "isLocked": 0,
+                "isVoid": 0,
+                "kioskNumber": 31,
+                "zoneID": 47
+            }
+        ]
+    }
+}
+
+***************************************************************
+update KIOSK details
+====================
+The two values which can be set here are : voidKiosk and/or voidKiosk
+
+POST --------- > jouple.net:8090/edenapi/dash/updatekiosk
+
+{
+        "kioskID": 274,
+        "voidKiosk" : "1",
+        "lockKiosk" : "0",
+        "staff_email_id": "avaesshah@gmail.com"
+
+
+    }
+JSON response:
+
+{
+    "response": {
+        "status": "Success",
+        "message": "New kiosk details have been updated successfully"
+    },
+    "success": true,
+    "data": {
+        "kioskID": 274,
+        "gridLocationRow": 5,
+        "gridLocationColumn": 7,
+        "isLocked": 0,
+        "isVoid": 1,
+        "kioskNumber": 0,
+        "zoneID": 44
+    }
+}
+
+===============================================================
+delete KIOSK from database
+==========================
+Deletes a kiosk by specifying kioskID
+
+POST --------- > jouple.net:8090/edenapi/dash/deletekiosk
+
+{
+
+        "kioskID": 272,
+        "staff_email_id": "avaesshah@gmail.com"
+ 
+}
+
+successful return response:
+
+
+{
+    "response": {
+        "status": "Success",
+        "message": "kiosk has been successfully deleted from the database"
+    },
+    "success": true
+}
